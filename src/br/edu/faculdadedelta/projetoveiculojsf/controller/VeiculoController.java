@@ -4,6 +4,7 @@ import java.sql.Array;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
@@ -42,20 +43,25 @@ public class VeiculoController {
 	public String salvar() {
 
 		try {
-			if (veiculo.getId() == null) {
-				// incluir
+			if (veiculo.getDataFabricacao().before(new Date())) {
+				if (veiculo.getId() == null) {
+					// incluir
 
-				dao.incluir(veiculo);
-				limparCampos();
-				exibirMensagem("inclusão feita com sucesso.");
+					dao.incluir(veiculo);
+					limparCampos();
+					exibirMensagem("inclusão feita com sucesso.");
+				} else {
+					// alterar
+
+					dao.alterar(veiculo);
+					limparCampos();
+					exibirMensagem("Alteração feita com sucesso");
+
+				}
 			} else {
-				// alterar
-
-				dao.alterar(veiculo);
-				limparCampos();
-				exibirMensagem("Alteração feita com sucesso");
-
+				exibirMensagem("A data de fabricação deve ser anterior a autal");
 			}
+			
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 			exibirMensagem("Erro ao realizar a operação, " 
@@ -63,20 +69,33 @@ public class VeiculoController {
 		}
 
 		return "cadastroVeiculo.xhtml";
-
-	}
 	
-	public List<Veiculo> getLista(){
-		
-		List<Veiculo> listaRetorno = new ArrayList<>(); 
+	}
+
+	public List<Veiculo> getLista() {
+
+		List<Veiculo> listaRetorno = new ArrayList<>();
 		try {
 			listaRetorno = dao.Listar();
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
-			exibirMensagem("Erro ao realizar operação"
-					+ "tente novamente mais tarde" + e.getMessage());
+			exibirMensagem("Erro ao realizar operação" + "tente novamente mais tarde" + e.getMessage());
 		}
 		return listaRetorno;
 	}
-	
+
+	public String editar() {
+		return "cadastroVeiculo.xhtml";
+	}
+
+	public String excluir() {
+		try {
+			dao.excluir(veiculo);
+			exibirMensagem("Exclusão realizada com sucesso!");
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+			exibirMensagem("Erro ao realizar a operação, " + "tente novamente mais tarde." + e.getMessage());
+		}
+		return "listaVeiculo.xhtml";
+	}
 }

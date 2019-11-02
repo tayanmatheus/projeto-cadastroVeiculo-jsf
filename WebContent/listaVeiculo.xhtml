@@ -7,49 +7,68 @@
 
 
 <h:head>
-<title>Lista de veiculos</title>
+	<title>Lista de veiculos</title>
 
 </h:head>
-<h:body> //formulario de cadastro
+<h:body>
 	<h:form>
-		<h:commandLink value="Cadastro" action="cadastroVeiculo.xhtml" immediate="true" />
-	   <h1>Lista de veiculos:</h1>
-	   <h:messages />
-	   <h:dataTable value="#{veiculoController.lista}" var="veiculo" border="2">
-	   		<h:column>
-	   			<f:facet name="header">
-	   			<h:outputText value="id" />
-	   			</f:facet>
-	   			<h:outputText value="#{veiculo.id}" />
-	   		</h:column>
-	   		<h:column>
-	   		<f:facet name="header">
-	   		<h:outputText value="Marca" />
-	   		</f:facet>
-	   		<h:outputText value="#{veiculo.marca}" />
-	   		</h:column>
-	   		<h:column>
-	   		<f:facet name="header">
-	   		<h:outputText value="Fabricante" />
-	   		</f:facet>
-	   		<h:outputText value="#{veiculo.fabricante}" />
-	   		</h:column>
-	   		<h:column>
-	   		<f:facet name="header">
-	   		<h:outputText value="Valor" />
-	   		</f:facet>
-	   		<h:outputText value="#{veiculo.valor}" />
-	   		</h:column>
-	   		<h:column>
-	   		<f:facet name="header">
-	   		<h:outputText value="Data de Fabricação" />
-	   		</f:facet>
-	   		<h:outputText value="#{veiculo.dataFabricacao}">
-	   		<f:convertDateTime
-	   			pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
-	   		</h:outputText>
-	   		</h:column>
-	   </h:dataTable>
+			<h:commandLink value="Menu" action="menu.xhtml"
+			immediate="true" />
+		<h1>Lista de veiculos:</h1>
+		<h:messages />
+		<h:dataTable value="#{veiculoController.lista}" var="veiculo"
+			border="2">
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="id" />
+				</f:facet>
+				<h:outputText value="#{veiculo.id}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="Marca" />
+				</f:facet>
+				<h:outputText value="#{veiculo.marca}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="Fabricante" />
+				</f:facet>
+				<h:outputText value="#{veiculo.fabricante}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="Valor" />
+				</f:facet>
+				<h:outputText value="#{veiculo.valor}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="Data de Fabricação" />
+				</f:facet>
+				<h:outputText value="#{veiculo.dataFabricacao}">
+					<f:convertDateTime pattern="dd/MM/yyyy"
+						timeZone="America/Sao_Paulo" />
+				</h:outputText>
+			</h:column>
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="Ação" />
+				</f:facet>
+				<h:commandButton value="Editar" action="#{veiculoController.editar}">
+					<f:setPropertyActionListener value="#{veiculo}"
+						target="#{veiculoController.veiculo}" />
+				</h:commandButton>
+				<h:commandButton value="Excluir"
+					action="#{veiculoController.excluir}"
+					onclick="return confirm('confirma a exclusão?')">
+						<f:setPropertyActionListener value="#{veiculo}"
+						target="#{veiculoController.veiculo}" />
+				</h:commandButton>
+
+			</h:column>
+
+		</h:dataTable>
 	</h:form>
 </h:body>
 </html>

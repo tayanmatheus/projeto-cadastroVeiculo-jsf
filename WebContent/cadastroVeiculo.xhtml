@@ -11,7 +11,8 @@
 </h:head>
 <h:body>
 	<h:form>
-	<h:commandLink value="Lista" action="listaVeiculo.xhtml" immediate="true" />
+			<h:commandLink value="Menu" action="menu.xhtml"
+			immediate="true" />
 		<h1>Cadastro de Veiculo</h1>
 		<h:messages />
 		<h:panelGrid columns="2">
@@ -21,17 +22,27 @@
 			<h:outputText value="Fabricante: *" />
 			<h:inputText value="#{veiculoController.veiculo.fabricante}"
 				required="true" requiredMessage="O campo fabricante é obrigatório!" />
-			<h:outputText value="Valor: *" />
+				<h:outputText value="Valor: *" />
 			<h:inputText value="#{veiculoController.veiculo.valor}"
-				required="true" requiredMessage="O campo valor é obrigatório!" />
+				required="true" requiredMessage="O campo valor é obrigatório!" >
+					<f:validateDoubleRange minimum="500">
+					</f:validateDoubleRange>
+					
+					</h:inputText>
 			<h:outputText value="Data de Fabricação: *" />
 			<h:inputText value="#{veiculoController.veiculo.dataFabricacao}"
 				required="true"
 				requiredMessage="O campo data de fabricação é obrigatório!">
 				<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
-			</h:inputText>
-			<h:commandButton value="salvar" action="#{veiculoController.salvar}" />
+					</h:inputText>
+				<h:commandButton value="Salvar" 
+					action="#{veiculoController.salvar}" />
+				<h:commandButton value="Limpar" 
+					action="cadastroVeiculo.xhtml"
+					actionListener="#{veiculoController.limparCampos}"
+					immediate="true" />
 		</h:panelGrid>
 	</h:form>
 </h:body>
+​
 </html>
