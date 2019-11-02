@@ -4,6 +4,7 @@ Professor: Paulo Roberto
 
 # Descrição
 Sistema em JSF de cadastro e lista de veículos cadastrados, <br />
+Com menu e funções de editar e excluir produtos, <br />
 com C R U D básico conectado ao PostgreSQL.
 
 # Tecnologias Utilizadas
